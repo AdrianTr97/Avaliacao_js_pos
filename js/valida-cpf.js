@@ -1,5 +1,6 @@
-export default function ehUmCPF(cpf) {
-    const cpf = cpf.value.replace(/\.|-/g, "");
+export default function ehUmCPF(cpfLimpo) {
+    // Recebe o valor do formulário (cpfLimpo) e tira os pontos e traços, salvando em 'cpf'
+    const cpf = cpfLimpo.replace(/\.|-/g, "");
     //validaNumerosRepetidos(cpf);
     /*if (validaNumerosRepetidos(cpf) || validaPrimeiroDigito(cpf) || validaSegundoDigito(cpf)) {
         console.log("Esse cpf não existe!");
