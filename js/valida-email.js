@@ -1,4 +1,8 @@
-export default function ehUmEmailValido(campo) {
+export default function ehUmEmailValido(email) {
+    const padraoEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return padraoEmail.test(email);
+}
+/*export default function ehUmEmailValido(campo) {
     const email = campo.value;
     const padraoEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -7,4 +11,4 @@ export default function ehUmEmailValido(campo) {
     } else {
         campo.setCustomValidity('');
     }
-}
+}*/
