@@ -4,6 +4,26 @@ import ehUmNomeValido from "./valida-nome.js";
 import ehUmEmailValido from "./valida-email.js";
 
 // 1. TEMA (CLARO/ESCURO)
+
+/*const btnTema = document.querySelector("#btn-tema");
+const htmlTag = document.documentElement; // Pega a tag <html>
+
+const alternarTema = function() {
+    if (htmlTag.classList.contains("dark")) {
+        htmlTag.classList.remove("dark");
+        localStorage.setItem("tema", "claro");
+    } else {
+        htmlTag.classList.add("dark");
+        localStorage.setItem("tema", "escuro");
+    }
+};
+
+if (btnTema) btnTema.addEventListener("click", alternarTema);
+
+// Verifica ao carregar a página se já estava escuro
+if (localStorage.getItem("tema") === "escuro") {
+    htmlTag.classList.add("dark");
+}*/
 const btnTema = document.querySelector("#btn-tema");
 
 const alternarTema = function() {
@@ -15,28 +35,40 @@ const alternarTema = function() {
         corpo.classList.replace("bg-gray-50", "bg-gray-800");
         corpo.classList.replace("text-gray-900", "text-gray-100");
 
-        // Transforma todos os fundos brancos em fundos escuros (Formulários, cards)
+        // Escurece caixas brancas
         document.querySelectorAll(".bg-white").forEach(el => {
             el.classList.replace("bg-white", "bg-gray-900");
-            el.classList.add("caixa-invertida"); // Marcação para saber o que reverter
+            el.classList.add("caixa-invertida"); 
         });
 
-        // Transforma todos os textos escuros forçados em textos claros (Listas, labels, parágrafos)
-        // AQUI ESTÁ A CORREÇÃO: "main label" foi adicionado!
+        // AQUI RESOLVE O SUMIÇO DO TEXTO M, F E INPUTS: 
+        // Pega os fundos cinza claro (inputs, selects) e escurece
+        document.querySelectorAll(".bg-gray-50").forEach(el => {
+            el.classList.replace("bg-gray-50", "bg-gray-700");
+            el.classList.replace("text-gray-900", "text-gray-100");
+            el.classList.add("input-invertido");
+        });
+
+        // Clareia textos de labels e parágrafos
         document.querySelectorAll("main .text-gray-900, main label").forEach(el => {
             el.classList.replace("text-gray-900", "text-gray-100");
             el.classList.add("texto-invertido");
         });
 
-        // Clareia os azuis fortes para dar leitura no fundo escuro
         document.querySelectorAll("main .text-blue-900").forEach(el => {
             el.classList.replace("text-blue-900", "text-blue-400");
             el.classList.add("azul-invertido");
         });
 
+        // LÓGICA DA LUA: Tira o fundo branco, aplica o invert para ela ficar branca
+        if(btnTema) {
+            btnTema.classList.remove("bg-white");
+            btnTema.classList.add("invert");
+        }
+
         localStorage.setItem("tema", "escuro");
     } else {
-        // REVERTE TUDO PARA O MODO CLARO
+        // REVERTE PARA O MODO CLARO
         corpo.setAttribute("data-tema", "claro");
         corpo.classList.replace("bg-gray-800", "bg-gray-50");
         corpo.classList.replace("text-gray-100", "text-gray-900");
@@ -44,6 +76,12 @@ const alternarTema = function() {
         document.querySelectorAll(".caixa-invertida").forEach(el => {
             el.classList.replace("bg-gray-900", "bg-white");
             el.classList.remove("caixa-invertida");
+        });
+
+        document.querySelectorAll(".input-invertido").forEach(el => {
+            el.classList.replace("bg-gray-700", "bg-gray-50");
+            el.classList.replace("text-gray-100", "text-gray-900");
+            el.classList.remove("input-invertido");
         });
 
         document.querySelectorAll(".texto-invertido").forEach(el => {
@@ -56,11 +94,18 @@ const alternarTema = function() {
             el.classList.remove("azul-invertido");
         });
 
+        // LÓGICA DA LUA: Volta o fundo branco e a lua preta
+        if(btnTema) {
+            btnTema.classList.add("bg-white");
+            btnTema.classList.remove("invert");
+        }
+
         localStorage.setItem("tema", "claro");
     }
 };
 
 if (btnTema) btnTema.addEventListener("click", alternarTema);
+
 if (localStorage.getItem("tema") === "escuro") {
     document.querySelector("body").setAttribute("data-tema", "claro");
     alternarTema();
