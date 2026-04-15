@@ -1,10 +1,16 @@
-export default function ehUmaIdadeValida(campo) {
+/*export default function ehUmaIdadeValida(campo) {
     const idade = campo.value;
     if (idade < 10 || idade > 120) {
         campo.setCustomValidity('A idade deve estar entre 10 e 120 anos.');
     } else {
         campo.setCustomValidity('');
     }
+}*/
+export default function ehUmaIdadeValida(idade) {
+    if (idade < 10 || idade > 120) {
+        return false;
+    }
+    return true;
 }
 /*export default function ehMaiorDeIdade(campo) {
     const dataNascimento = new Date(campo.value);
